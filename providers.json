@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
+    "proto": "socks5"
+  }
+]

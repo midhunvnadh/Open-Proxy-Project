@@ -1,19 +1,6 @@
 import requests
-
-providers = [
-    {
-        "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt",
-        "proto": "http"
-    },
-    {
-        "url": 'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt',
-        "proto": "socks4"
-    },
-    {
-        "url": 'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt',
-        "proto": "socks5"
-    },
-]
+from time import sleep
+import json
 
 
 def remove_duplicates(list):
@@ -34,6 +21,20 @@ def remove_duplicates(list):
 
 def servers():
     servers_list = []
+
+    providers = []
+
+    try:
+        with open("providers.json", "r") as f:
+            providers = json.load(f)
+    except FileNotFoundError:
+        print("[!] No providers.json found.")
+        sleep(10)
+        exit()
+    except Exception as e:
+        print(f"[!] Error: {e}")
+        sleep(10)
+        exit()
 
     for provider in providers:
         try:
