@@ -16,4 +16,5 @@ jobs:
         dst_path: /.
         dst_owner: midhunvnadh
         dst_repo_name: OPP-Proxies
+        src_branch: main
         dst_branch: main
