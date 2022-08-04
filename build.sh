@@ -8,3 +8,4 @@ cp providers.json build/
 cp servers.json build/
 cp build.log build/
 echo "$now" > build/build.date
+echo "Build complete"

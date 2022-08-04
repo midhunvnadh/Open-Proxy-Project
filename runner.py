@@ -51,7 +51,7 @@ def main():
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
-        if(len(threads) >= 50):
+        if(len(threads) >= 20):
             for t in threads:
                 t.start()
             for t in threads:

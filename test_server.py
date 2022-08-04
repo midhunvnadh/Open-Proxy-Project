@@ -23,7 +23,7 @@ def test_server(server_url):
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
                 "referer": "https://ipinfo.io/"
             },
-            timeout=3
+            timeout=8
         )
         r = r.json()
         data = r["data"]
