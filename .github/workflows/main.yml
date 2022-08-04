@@ -1,0 +1,19 @@
+name: Push File
+
+on: push
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Push File
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.API_TOKEN_GITHUB }}
+        src_path: providers.json
+        dst_path: /.
+        dst_owner: midhunvnadh
+        dst_repo_name: OPP-Proxies
+        dst_branch: main
