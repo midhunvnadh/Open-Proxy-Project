@@ -1,4 +1,8 @@
-
-servers.json
 __pycache__/
 
+servers.json
+
+build/*.json
+
+**.date
+**.log
