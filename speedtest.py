@@ -15,7 +15,7 @@ def speedtest(proxy_server_url):
         r = requests.get(url, proxies=proxies, timeout=30)
         time_end = time.time()
         time_diff = time_end - time_start
-        if(time_diff < 1):
+        if(time_diff < 1 and time_diff > 0):
             time_diff = 1
     except Exception as e:
         pass
