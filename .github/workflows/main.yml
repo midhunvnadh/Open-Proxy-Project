@@ -3,6 +3,7 @@ name: Update Servers
 on:
   schedule:
     - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 jobs:
   build_and_deploy:
