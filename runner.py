@@ -42,21 +42,28 @@ def test_availability(server):
         print(f"{emoji}\t{server_url} \t\t\t [{proxies_length} Left]")
 
 
+def run_threads(threads):
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    threads.clear()
+
+
 def main():
     global servers_length, proxies_length
     servers_list = servers()
     proxies_length = len(servers_list)
     threads = []
     print("[+] Starting test...")
+
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
         if(len(threads) >= 50):
-            for t in threads:
-                t.start()
-            for t in threads:
-                t.join()
-            threads.clear()
+            run_threads(threads)
+    run_threads(threads)
+
     update_servers(available_servers)
 
 
