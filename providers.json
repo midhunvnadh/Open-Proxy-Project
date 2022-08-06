@@ -10,5 +10,21 @@
   {
     "url": "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
     "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-https.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks5.txt",
+    "proto": "socks5"
   }
 ]
