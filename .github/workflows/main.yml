@@ -1,4 +1,4 @@
-name: Push File
+name: Update Servers
 
 on:
   schedule:
