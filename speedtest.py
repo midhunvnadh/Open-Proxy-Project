@@ -1,3 +1,4 @@
+from logging import PercentStyle
 import requests
 import time
 
@@ -17,6 +18,8 @@ def speedtest(proxy_server_url):
     except Exception as e:
         pass
     if(time_diff > 0):
-        return int(float(1/time_diff) * 100)
+        kbps = float(1024/time_diff)
+        percent = (kbps/1024) * 100
+        return int(percent)
     else:
         return 0
