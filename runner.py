@@ -32,8 +32,6 @@ def test_availability(server):
         server_available, private, data = test_server(server_url)
         server["data"] = data
         server["private"] = private
-        if private:
-            n_private_servers += 1
     except Exception as e:
         print(e)
         pass
@@ -44,6 +42,8 @@ def test_availability(server):
             if(server_speed_rating > 0):
                 available_servers.append(server)
                 server_added = True
+                if private:
+                    n_private_servers += 1
         proxies_length -= 1
         emoji = "[+]" if server_added else "[-]"
 
