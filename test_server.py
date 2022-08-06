@@ -3,8 +3,9 @@ import requests
 import re
 
 
-def get_private_filter(privacy):
-    return privacy["vpn"] == False and privacy["proxy"] == False and privacy["tor"] == False and privacy["hosting"] == False
+def get_private_filter(server):
+    privacy = server["privacy"]
+    return privacy["vpn"] == False and privacy["proxy"] == False and server["asn"]["type"] != "hosting"
 
 
 def test_server(server_url):
