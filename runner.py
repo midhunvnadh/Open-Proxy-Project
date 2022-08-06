@@ -3,6 +3,8 @@ import json
 from servers import servers
 from test_server import test_server
 from stats import stats
+from speedtest import speedtest
+from format_string import format_string
 
 
 def update_servers(list, filename="servers.json"):
@@ -23,6 +25,8 @@ def test_availability(server):
     private = False
     server_available = False
     data = {}
+    server_added = False
+    server_speed_rating = 0
 
     try:
         server_available, private, data = test_server(server_url)
@@ -35,11 +39,17 @@ def test_availability(server):
         pass
     finally:
         if(server_available):
-            available_servers.append(server)
+            server_speed_rating = speedtest(server_url)
+            server["speed_score"] = server_speed_rating
+            if(server_speed_rating > 0):
+                available_servers.append(server)
+                server_added = True
         proxies_length -= 1
-        emoji = "[+]" if server_available else "[-]"
+        emoji = "[+]" if server_added else "[-]"
 
-        print(f"{emoji}\t{server_url} \t\t\t [{proxies_length} Left]")
+        print(
+            f"{emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}] \t\t [{format_string(proxies_length, 6)} Left]"
+        )
 
 
 def run_threads(threads):
@@ -60,7 +70,7 @@ def main():
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
-        if(len(threads) >= 50):
+        if(len(threads) >= 250):
             run_threads(threads)
     run_threads(threads)
 
