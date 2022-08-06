@@ -72,7 +72,7 @@ def main():
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
-        if(len(threads) >= 500):
+        if(len(threads) >= 1000):
             run_threads(threads)
     run_threads(threads)
 
