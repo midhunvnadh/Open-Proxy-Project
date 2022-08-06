@@ -8,6 +8,8 @@ from format_string import format_string
 
 
 def update_servers(list, filename="servers.json"):
+    if(len(list) == 0):
+        raise Exception("No servers found!")
     servers = json.dumps(list)
     with open(filename, "w") as f:
         f.write(servers)
