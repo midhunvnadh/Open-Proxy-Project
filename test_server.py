@@ -30,7 +30,7 @@ def test_server(server_url):
         data = r["data"]
         country_code = data["country"]
         privacy = data["privacy"]
-        private = get_private_filter(privacy)
+        private = get_private_filter(data)
         available, private, data = True, private, data
     except requests.exceptions.Timeout as e:
         pass
