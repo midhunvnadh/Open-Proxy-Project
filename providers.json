@@ -26,5 +26,33 @@
   {
     "url": "https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks5.txt",
     "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/RX4096/proxy-list/main/online/https.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/RX4096/proxy-list/main/online/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UptimerBot/proxy-list/main/proxies/socks5.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UptimerBot/proxy-list/main/proxies/socks4.txt",
+    "proto": "socks4"
+  }
+  {
+    "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt",
+    "proto": "http"
+  }
+  {
+    "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks4.txt",
+    "proto": "socks4"
+  }
+  {
+    "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks5.txt",
+    "proto": "socks5"
   }
 ]
