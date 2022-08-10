@@ -42,15 +42,15 @@
   {
     "url": "https://raw.githubusercontent.com/UptimerBot/proxy-list/main/proxies/socks4.txt",
     "proto": "socks4"
-  }
+  },
   {
     "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt",
     "proto": "http"
-  }
+  },
   {
     "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks4.txt",
     "proto": "socks4"
-  }
+  },
   {
     "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks5.txt",
     "proto": "socks5"
