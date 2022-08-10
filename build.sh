@@ -1,3 +1,5 @@
+set -e
+
 pip3 install -r requirements.txt
 python3 runner.py 2>&1 | tee build.log
 
