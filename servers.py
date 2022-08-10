@@ -3,20 +3,20 @@ from time import sleep
 import json
 
 
-def remove_duplicates(list):
-    new_list = [
-        i for n,
-        i in enumerate(list)
-        if i not in list[:n]
-    ]
+def remove_duplicates(ls):
+    new_list = list(set(ls))
 
-    if(len(list) != len(new_list)):
-        no_of_duplicates = len(list) - len(new_list)
+    no_of_duplicates = len(ls) - len(new_list)
+    if(no_of_duplicates > 0):
         print(
             f"[!] Duplicates found in the list. Removed {no_of_duplicates} duplicates."
         )
 
     return new_list
+
+
+def revert_json_list(json_list):
+    return [json.loads(x) for x in json_list]
 
 
 def servers():
@@ -45,14 +45,15 @@ def servers():
             proto = provider["proto"]
             for proxy in req:
                 servers_list.append(
-                    {
+                    json.dumps({
                         "proto": proto,
                         "url": f"{proto}://{proxy}"
-                    }
+                    })
                 )
         except Exception as e:
             print("[!] Error occoured with provider!:")
             pass
 
-    remove_duplicates_server_list = remove_duplicates(servers_list)
+    remove_duplicates_server_list = revert_json_list(
+        remove_duplicates(servers_list))
     return remove_duplicates_server_list
