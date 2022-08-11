@@ -2,7 +2,9 @@
 
 Updated proxies every 15 minutes!
 
-Link: [OProxy.ml](https://oproxy.ml)
+Link to Platform: [OProxy.ml](https://oproxy.ml)
+
+Link to Web app source: [midhunvnadh/OpenProxy](https://github.com/midhunvnadh/OpenProxy)
 
 ## Proxy Credits
 
