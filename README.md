@@ -1,4 +1,4 @@
-# Open-Proxy-Project
+# Open Proxy Project
 
 Updated proxies every 15 minutes!
 
