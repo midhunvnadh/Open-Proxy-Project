@@ -29,3 +29,4 @@ Of course proxies consume band width, and so we never have enough of them. If yo
 9. [github.com/manuGMG](https://github.com/manuGMG/proxy-365)
 10. [github.com/mertguvencli](https://github.com/mertguvencli/http-proxy-list)
 11. [github.com/monosans](https://github.com/monosans/proxy-list/)
+12. [github.com/saschazesiger](https://github.com/saschazesiger/Free-Proxies/)
