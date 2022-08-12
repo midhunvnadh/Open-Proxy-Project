@@ -8,6 +8,7 @@ from speedtest import speedtest
 from format_string import format_string
 from time import sleep
 import time
+import pysocks
 
 
 def update_servers(list, filename="servers.json"):
@@ -78,7 +79,7 @@ def main():
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
-        if(len(threads) >= 5000):
+        if(len(threads) >= 6000):
             run_threads(threads)
             threads = []
     run_threads(threads)
