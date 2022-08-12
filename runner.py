@@ -1,3 +1,4 @@
+from random import randint
 import threading
 import json
 from servers import servers
@@ -5,6 +6,8 @@ from test_server import test_server
 from stats import stats
 from speedtest import speedtest
 from format_string import format_string
+from time import sleep
+import time
 
 
 def update_servers(list, filename="servers.json"):
@@ -30,32 +33,36 @@ def test_availability(server):
     server_added = False
     server_speed_rating = 0
 
-    try:
-        server_available, private, data = test_server(server_url)
-        server["data"] = data
-        server["private"] = private
-    except Exception as e:
-        print(e)
-        pass
-    finally:
-        if(server_available):
-            server_speed_rating = speedtest(server_url)
-            server["speed_score"] = server_speed_rating
-            if(server_speed_rating > 0):
-                available_servers.append(server)
-                server_added = True
-                if private:
-                    n_private_servers += 1
-        proxies_length -= 1
-        emoji = "[+]" if server_added else "[-]"
+    retry = 3
+    while(retry > 0):
+        try:
+            server_available, private, data = test_server(server_url)
+            server["data"] = data
+            server["private"] = private
+            if(server_available):
+                server_speed_rating = speedtest(server_url)
+                server["speed_score"] = server_speed_rating
+                if(server_speed_rating > 0):
+                    available_servers.append(server)
+                    server_added = True
+                    if private:
+                        n_private_servers += 1
+            proxies_length -= 1
+            break
+        except Exception as e:
+            print(e)
+            sleep(2 + randint(1, 3))
+            retry -= 1
 
-        print(
-            f"{emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}] \t\t [{format_string(proxies_length, 6)} Left]"
-        )
+    emoji = "[+]" if server_added else "[-]"
+    print(
+        f"{emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)} | {format_string(proxies_length, 6)} Left]"
+    )
 
 
 def run_threads(threads):
     for t in threads:
+        t.daemon = True
         t.start()
     for t in threads:
         t.join()
@@ -71,7 +78,7 @@ def main():
     for server in servers_list:
         t1 = threading.Thread(target=test_availability, args=(server, ))
         threads.append(t1)
-        if(len(threads) >= 30000):
+        if(len(threads) >= 5000):
             run_threads(threads)
             threads = []
     run_threads(threads)
