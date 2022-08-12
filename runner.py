@@ -8,7 +8,6 @@ from speedtest import speedtest
 from format_string import format_string
 from time import sleep
 import time
-import pysocks
 
 
 def update_servers(list, filename="servers.json"):
