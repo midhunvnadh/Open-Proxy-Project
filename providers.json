@@ -86,5 +86,17 @@
   {
     "url": "https://raw.githubusercontent.com/mertguvencli/http-proxy-list/main/proxy-list/data.txt",
     "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
+    "proto": "socks5"
   }
 ]
