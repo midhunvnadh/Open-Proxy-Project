@@ -54,5 +54,37 @@
   {
     "url": "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks5.txt",
     "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/proxy4parsing/proxy-list/main/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/manuGMG/proxy-365/main/SOCKS5.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mertguvencli/http-proxy-list/main/proxy-list/data.txt",
+    "proto": "http"
   }
 ]
