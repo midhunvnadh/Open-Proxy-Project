@@ -7,7 +7,7 @@ import argparse
 
 def args():
     parser = argparse.ArgumentParser(description='Run Open Proxy Updater')
-    parser.add_argument('--threads', metavar='N', type=int, default=12)
+    parser.add_argument('--threads', metavar='N', type=int, default=5)
     parser.add_argument('--once', action="store_true")
     parsed = parser.parse_args()
 
