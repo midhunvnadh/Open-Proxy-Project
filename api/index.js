@@ -3,8 +3,10 @@ import express from 'express';
 import { MongoClient } from "mongodb";
 import { Server } from "socket.io";
 import fs from 'fs';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 import http from 'http';
 
 const client = new MongoClient(process.env.MONGO_CONN_URL);
