@@ -1,5 +1,4 @@
 from concurrent.futures import process
-from zoneinfo import available_timezones
 from run_get_new_servers import new_servers
 from run_update_servers import update_servers
 import multiprocessing as mp
@@ -21,8 +20,8 @@ threads_no, once = args()
 
 process = [
     mp.Process(target=new_servers, args=(threads_no, once, )),
-    #mp.Process(target=update_servers, args=(True, threads_no, once, )),
-    #mp.Process(target=update_servers, args=(False, threads_no, once, )),
+    mp.Process(target=update_servers, args=(True, threads_no, once, )),
+    mp.Process(target=update_servers, args=(False, threads_no, once, )),
 ]
 
 if __name__ == '__main__':
