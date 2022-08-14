@@ -27,10 +27,8 @@ try {
         (curr, prev) => {
             fs.readFile(logfile, 'utf-8', (err, data) => {
                 const data_split = data.split("\n").slice(-10)
-                console.log(data_split, last_read)
                 data_split.forEach(line => {
                     if (!last_read.includes(line)) {
-                        io.emit('log', { line: line });
                         console.log("Emitted: ", line)
                     }
                 })
