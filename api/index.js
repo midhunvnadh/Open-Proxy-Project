@@ -86,35 +86,43 @@ app.get('/servers', async (req, res) => {
     const { page, country, proto, query } = req.query
     try {
         const db = client.db("servers");
-        console.log(query)
-        const collection = await
-            db.collection('servers')
-                .find(
-                    query ?
+        const collection = db.collection('servers')
+        var db_res;
+        if (query) {
+            db_res = await
+                collection
+                    .find({ available: true, $text: { $search: query } })
+                    .project({ _id: 0 })
+                    .skip(10 * (page || 0))
+                    .limit(10)
+                    .toArray();
+        }
+        else {
+            db_res = await
+                collection
+                    .find({ available: true })
+                    .project({ _id: 0 })
+                    .sort(
+                        { streak: -1 }
+                    )
+                    .filter(
                         {
-                            $text: { $search: query },
+                            ...(country ? { "data.country": country } : {}),
+                            ...(proto ? { proto } : {})
                         }
-                        :
-                        { available: true }
-                )
-                .project({ _id: 0 })
-                .sort(query ? { url: -1 } : { streak: -1 })
-                .filter(
-                    {
-                        ...(country ? { "data.country": country } : {}),
-                        ...(proto ? { proto } : {})
-                    }
-                )
-                .skip(10 * (page || 0))
-                .limit(10)
-                .toArray();
-        const count = await db.collection('servers').countDocuments({ available: true })
+                    )
+                    .skip(10 * (page || 0))
+                    .limit(10)
+                    .toArray();
+        }
+        const count = await collection.countDocuments({ available: true })
         return res.status(200).send({
             alive_count: count,
-            servers: collection
+            servers: db_res
         });
     }
     catch (err) {
+        console.log(err)
         return res.status(500).send({ error: true });
     }
 })
