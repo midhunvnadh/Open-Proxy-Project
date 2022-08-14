@@ -87,7 +87,7 @@ def update_servers(available=True):
                     args=(server,)
                 )
                 threads.append(t1)
-                if(len(threads) >= 250):
+                if(len(threads) >= 25):
                     run_threads(threads)
                     threads = []
             run_threads(threads)
