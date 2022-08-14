@@ -28,10 +28,8 @@ def test_availability(server):
     while(retry > 0):
         try:
             server_available, private, data = test_server(server_url)
-            server["data"] = data
+            server["data"] = data if data else server["data"]
             server["private"] = private
-            if(not data):
-                break
             if(server_available):
                 server_speed_rating = speedtest(server_url)
                 server["speed_score"] = server_speed_rating
