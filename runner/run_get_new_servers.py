@@ -90,7 +90,7 @@ def new_servers():
                     target=test_availability, args=(server, )
                 )
                 threads.append(t1)
-                if(len(threads) >= 50):
+                if(len(threads) >= 100):
                     run_threads(threads)
                     threads = []
             run_threads(threads)
