@@ -1,9 +1,7 @@
-from asyncio import threads
 from concurrent.futures import process
 from zoneinfo import available_timezones
 from run_get_new_servers import new_servers
 from run_update_servers import update_servers
-import sys
 import multiprocessing as mp
 import argparse
 
