@@ -16,20 +16,28 @@ const io = new Server(server, { cors: { origin: "*" } })
 
 
 const logfile = "/var/log/oproxy_runner.log"
+
 try {
+    var last_read = []
     fs.watchFile(logfile,
         {
             persistent: true,
             interval: 200
         },
         (curr, prev) => {
-            var emit = ""
             fs.readFile(logfile, 'utf-8', (err, data) => {
-                if (err) throw err;
-                let lines = data.trim().split("\n")
-                var emit = (lines[lines.length - 1])
-                io.emit('log', { line: emit });
-                console.log("Emitted: ", emit)
+                const data_split = data.split("\n").slice(-10)
+                console.log(data_split, last_read)
+                data_split.forEach(line => {
+                    if (!last_read.includes(line)) {
+                        io.emit('log', { line: line });
+                        console.log("Emitted: ", line)
+                    }
+                })
+                last_read = data.split("\n").slice(-10)
+                if (last_read.length >= 100) {
+                    last_read.slice(0, 50)
+                }
             })
         }
     );
