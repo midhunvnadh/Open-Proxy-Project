@@ -1,2 +1,7 @@
+# Runner
 runner/__pycache__/
 .env
+
+# API Server
+api/node_modules
+api/package-lock.json

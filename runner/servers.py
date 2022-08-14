@@ -48,7 +48,7 @@ def servers():
 
     try:
         with open("providers.json", "r") as f:
-            providers = json.load(f)[:1]
+            providers = json.load(f)
     except FileNotFoundError:
         print("[!] No providers.json found.")
         sleep(10)
