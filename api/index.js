@@ -61,6 +61,14 @@ app.get('/', (req, res) => {
                         "description": "Returns the list of available servers",
                         "url": `${server_url}/servers`,
                     },
+                    "GET /countries": {
+                        "description": "Returns the list of available countries",
+                        "url": `${server_url}/countries`,
+                    },
+                    "GET /prototypes": {
+                        "description": "Returns the list of available prototypes",
+                        "url": `${server_url}/prototypes`,
+                    },
                 }
             }
         );
@@ -82,10 +90,58 @@ app.get('/servers', async (req, res) => {
                 .skip(10 * (page || 0))
                 .limit(10)
                 .toArray();
-        return res.status(200).send(collection);
+        const count = await db.collection('servers').countDocuments({ available: true })
+        return res.status(200).send({
+            alive_count: count,
+            servers: collection
+        });
     }
     catch (err) {
         return res.status(500).send({ error: true });
+    }
+})
+
+app.get('/countries', async (req, res) => {
+    try {
+        const db = client.db("servers");
+        const collection = await
+            db.collection('servers')
+                .aggregate([
+                    {
+                        $group: {
+                            _id: "$id",
+                            countries: { $addToSet: "$data.country" },
+                        }
+                    }
+                ])
+                .project({ _id: 0, countries: 1 })
+                .toArray();
+        return res.status(200).send(collection[0].countries.sort());
+    }
+    catch (err) {
+        return res.status(500).send({ error: true, err });
+    }
+})
+
+app.get('/prototypes', async (req, res) => {
+    try {
+        const db = client.db("servers");
+        const collection = await
+            db.collection('servers')
+                .aggregate([
+                    {
+                        $group: {
+                            _id: "$id",
+                            proto: { $addToSet: "$proto" },
+                        }
+                    }
+                ])
+                .project({ _id: 0 })
+                .toArray();
+        return res.status(200).send(collection[0]["proto"].sort());
+    }
+    catch (err) {
+        return res.status(500).send({ error: true, err });
     }
 })
 
