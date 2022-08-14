@@ -1,6 +1,7 @@
 import requests
 from time import sleep
 import json
+import threading
 
 
 def remove_duplicates(ls):
@@ -19,14 +20,35 @@ def revert_json_list(json_list):
     return [json.loads(x) for x in json_list]
 
 
+servers_list = []
+
+
+def get_data(provider):
+    try:
+        req = requests.get(provider["url"]).text.split("\n")
+        proto = provider["proto"]
+        for proxy in req:
+            servers_list.append(
+                json.dumps({
+                    "proto": proto,
+                    "url": f"{provider['proto']}://{proxy}"
+                })
+            )
+        print(
+            f"[+] Fetched {provider['proto']} proxies from {provider['url']}"
+        )
+    except Exception as e:
+        print("[!] Error occoured with provider!:")
+        pass
+
+
 def servers():
-    servers_list = []
 
     providers = []
 
     try:
         with open("providers.json", "r") as f:
-            providers = json.load(f)
+            providers = json.load(f)[:1]
     except FileNotFoundError:
         print("[!] No providers.json found.")
         sleep(10)
@@ -36,23 +58,15 @@ def servers():
         sleep(10)
         exit()
 
+    threads = []
     for provider in providers:
-        try:
-            print(
-                f"[+] Fetching {provider['proto']} proxies from {provider['url']}"
-            )
-            req = requests.get(provider["url"]).text.split("\n")
-            proto = provider["proto"]
-            for proxy in req:
-                servers_list.append(
-                    json.dumps({
-                        "proto": proto,
-                        "url": f"{proto}://{proxy}"
-                    })
-                )
-        except Exception as e:
-            print("[!] Error occoured with provider!:")
-            pass
+        t1 = threading.Thread(
+            target=get_data, args=(provider, ))
+        t1.start()
+        threads.append(t1)
+
+    for t in threads:
+        t.join()
 
     remove_duplicates_server_list = revert_json_list(
         remove_duplicates(servers_list))

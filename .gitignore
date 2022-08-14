@@ -1,8 +1,2 @@
-__pycache__/
-
-servers.json
-
-build/*.json
-
-**.date
-**.log
+runner/__pycache__/
+.env

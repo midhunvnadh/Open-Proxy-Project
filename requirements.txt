@@ -1,3 +1,5 @@
+dnspython==2.2.1
 func_timeout==4.3.5
+pymongo==4.2.0
 pysocks==1.7.1
-requests==2.27.1
+requests==2.28.1
