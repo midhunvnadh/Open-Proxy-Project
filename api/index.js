@@ -71,9 +71,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/servers', async (req, res) => {
+    const { page } = req.query
     try {
         const db = client.db("servers");
-        const collection = await db.collection('servers').find({ available: true }).project({ _id: 0 }).toArray();
+        const collection = await
+            db.collection('servers')
+                .find({ available: true })
+                .project({ _id: 0 })
+                .sort({ streak: -1 })
+                .skip(10 * (page || 0))
+                .limit(10)
+                .toArray();
         return res.status(200).send(collection);
     }
     catch (err) {
