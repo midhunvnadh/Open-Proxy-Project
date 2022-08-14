@@ -69,6 +69,10 @@ app.get('/', (req, res) => {
                         "description": "Returns the list of available prototypes",
                         "url": `${server_url}/prototypes`,
                     },
+                    "GET /donate": {
+                        "description": "I need funds to keep this project alive in the cloud platform, help is appreciated!",
+                        "url": `https://paypal.me/midhunnadh`,
+                    },
                 }
             }
         );
@@ -79,14 +83,28 @@ app.get('/', (req, res) => {
 });
 
 app.get('/servers', async (req, res) => {
-    const { page } = req.query
+    const { page, country, proto, query } = req.query
     try {
         const db = client.db("servers");
+        console.log(query)
         const collection = await
             db.collection('servers')
-                .find({ available: true })
+                .find(
+                    query ?
+                        {
+                            $text: { $search: query },
+                        }
+                        :
+                        { available: true }
+                )
                 .project({ _id: 0 })
-                .sort({ streak: -1 })
+                .sort(query ? { url: -1 } : { streak: -1 })
+                .filter(
+                    {
+                        ...(country ? { "data.country": country } : {}),
+                        ...(proto ? { proto } : {})
+                    }
+                )
                 .skip(10 * (page || 0))
                 .limit(10)
                 .toArray();

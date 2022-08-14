@@ -30,6 +30,8 @@ def test_availability(server):
             server_available, private, data = test_server(server_url)
             server["data"] = data
             server["private"] = private
+            if(not data):
+                break
             if(server_available):
                 server_speed_rating = speedtest(server_url)
                 server["speed_score"] = server_speed_rating
