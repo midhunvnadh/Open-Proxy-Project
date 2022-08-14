@@ -1,8 +1,7 @@
-__pycache__/
+# Runner
+runner/__pycache__/
+.env
 
-servers.json
-
-build/*.json
-
-**.date
-**.log
+# API Server
+api/node_modules
+api/package-lock.json
