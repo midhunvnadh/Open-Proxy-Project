@@ -7,6 +7,7 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors());
+
 import http from 'http';
 
 const client = new MongoClient(process.env.MONGO_CONN_URL);
@@ -67,9 +68,9 @@ app.get('/', (req, res) => {
                         "description": "Returns the list of available countries",
                         "url": `${server_url}/countries`,
                     },
-                    "GET /prototypes": {
-                        "description": "Returns the list of available prototypes",
-                        "url": `${server_url}/prototypes`,
+                    "GET /protocols": {
+                        "description": "Returns the list of available protocols",
+                        "url": `${server_url}/protocols`,
                     },
                     "GET /donate": {
                         "description": "I need funds to keep this project alive in the cloud platform, help is appreciated!",
@@ -151,7 +152,7 @@ app.get('/countries', async (req, res) => {
     }
 })
 
-app.get('/prototypes', async (req, res) => {
+app.get('/protocols', async (req, res) => {
     try {
         const db = client.db("servers");
         const collection = await
