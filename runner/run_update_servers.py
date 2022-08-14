@@ -74,7 +74,7 @@ def run_threads(threads):
         t.join()
 
 
-def update_servers(available=True):
+def update_servers(available=True, threads_no=16, once=False):
     global client
     while True:
         threads = []
@@ -87,10 +87,12 @@ def update_servers(available=True):
                     args=(server,)
                 )
                 threads.append(t1)
-                if(len(threads) >= 4):
+                if(len(threads) >= threads_no):
                     run_threads(threads)
-                    threads = []
+                    threads.clear()
             run_threads(threads)
         except Exception as e:
             print(e)
             sleep(5)
+        if(once):
+            break

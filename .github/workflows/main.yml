@@ -1,0 +1,18 @@
+name: Update Servers
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_server:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - run: "./run.sh"
+        env:
+          MONGO_CONN_URL: "${{ secrets.MONGO_CONN_URL }}"

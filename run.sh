@@ -1,19 +1,9 @@
 #!/bin/bash
 
-run_server() {
-    while :
-    do
-        cd api
-        npm start
-    done
-}
-
 run_runner() {
-    while :
-    do
-        cd runner
-        python3 main.py
-    done
+    cd runner
+    # pip3 install -r requirements.txt
+    python3 main.py --once --threads=2000
 }
 
-run_server & run_runner
+run_runner

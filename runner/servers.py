@@ -39,7 +39,6 @@ def get_data(provider):
         )
     except Exception as e:
         print("[!] Error occoured with provider!:")
-        pass
 
 
 def servers():
@@ -62,11 +61,14 @@ def servers():
     for provider in providers:
         t1 = threading.Thread(
             target=get_data, args=(provider, ))
-        t1.start()
         threads.append(t1)
 
     for t in threads:
+        t.start()
+        sleep(0.2)
+    for t in threads:
         t.join()
+    threads.clear()
 
     remove_duplicates_server_list = revert_json_list(
         remove_duplicates(servers_list))

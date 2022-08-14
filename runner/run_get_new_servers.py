@@ -1,4 +1,3 @@
-import collections
 from curses import echo
 from http import client
 from random import randint
@@ -77,24 +76,29 @@ def run_threads(threads):
         t.join()
 
 
-def new_servers():
+def new_servers(threads_no=16, once=False):
+    global client
     while True:
         try:
-            global client
             client = mongo_client()
             servers_list = servers()
             threads = []
+            i = 0
 
             for server in servers_list:
+                i += 1
                 t1 = threading.Thread(
                     target=test_availability, args=(server, )
                 )
                 threads.append(t1)
-                if(len(threads) >= 8):
+                if(len(threads) >= threads_no):
                     run_threads(threads)
-                    threads = []
+                    threads.clear()
+
             run_threads(threads)
         except Exception as e:
             print(e)
             sleep(5)
-            client.close()
+        client.close()
+        if(once):
+            break
