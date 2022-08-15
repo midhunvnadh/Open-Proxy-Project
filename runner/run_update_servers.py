@@ -6,6 +6,7 @@ from random import randint
 from format_string import format_string
 import datetime
 import threading
+from socket_io_log import socket_io_logger as logger
 
 
 def update_server_in_db(server):
@@ -54,9 +55,10 @@ def test_availability(server):
             retry -= 1
 
     emoji = "[+]" if server_added else "[-]"
-    print(
+    line = (
         f"[Status Update] {emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}]"
     )
+    logger(line)
 
 
 def servers(available=True):

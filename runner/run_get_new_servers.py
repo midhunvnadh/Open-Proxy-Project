@@ -9,6 +9,8 @@ from speedtest import speedtest
 from format_string import format_string
 from time import sleep
 from mongo_conn import mongo_client
+from mongo_conn import mongo_client
+from socket_io_log import socket_io_logger as logger
 
 
 def check_server_present(server):
@@ -65,9 +67,10 @@ def test_availability(server):
 
     emoji = "[+]" if server_added else "[-]"
     if server_added:
-        print(
+        line = (
             f"[Found  Update] {emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}]"
         )
+        logger(line)
 
 
 def run_threads(threads):

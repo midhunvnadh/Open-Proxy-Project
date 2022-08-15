@@ -2,6 +2,7 @@ import requests
 from time import sleep
 import json
 import threading
+from socket_io_log import socket_io_logger as logger
 
 
 def remove_duplicates(ls):
@@ -9,7 +10,7 @@ def remove_duplicates(ls):
 
     no_of_duplicates = len(ls) - len(new_list)
     if(no_of_duplicates > 0):
-        print(
+        logger(
             f"[!] Duplicates found in the list. Removed {no_of_duplicates} duplicates."
         )
 
@@ -34,11 +35,11 @@ def get_data(provider):
                     "url": f"{provider['proto']}://{proxy}"
                 })
             )
-        print(
+        logger(
             f"[+] Fetched {provider['proto']} proxies from {provider['url']}"
         )
     except Exception as e:
-        print("[!] Error occoured with provider!:")
+        logger("[!] Error occoured with provider!:")
 
 
 def servers():
@@ -49,11 +50,11 @@ def servers():
         with open("providers.json", "r") as f:
             providers = json.load(f)
     except FileNotFoundError:
-        print("[!] No providers.json found.")
+        logger("[!] No providers.json found.")
         sleep(10)
         exit()
     except Exception as e:
-        print(f"[!] Error: {e}")
+        logger(f"[!] Error: {e}")
         sleep(10)
         exit()
 
