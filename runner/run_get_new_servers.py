@@ -104,6 +104,5 @@ def new_servers(threads_no=16, once=False):
         except Exception as e:
             print(e)
             sleep(5)
-        client.close()
         if(once):
             break
