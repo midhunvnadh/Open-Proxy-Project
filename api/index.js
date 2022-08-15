@@ -64,27 +64,29 @@ app.get('/servers', async (req, res) => {
             db_res = await
                 collection
                     .find({ available: true, $text: { $search: query } })
-                    .project({ _id: 0 })
+                    .filter({ available: true })
                     .skip(10 * (page || 0))
                     .limit(10)
+                    .project({ _id: 0 })
                     .toArray();
         }
         else {
             db_res = await
                 collection
                     .find({ available: true })
-                    .project({ _id: 0 })
-                    .sort(
-                        { streak: -1 }
-                    )
                     .filter(
                         {
+                            available: true,
                             ...(country ? { "data.country": country } : {}),
                             ...(proto ? { proto } : {})
                         }
                     )
+                    .sort(
+                        { streak: -1 }
+                    )
                     .skip(10 * (page || 0))
                     .limit(10)
+                    .project({ _id: 0 })
                     .toArray();
         }
         const count = await collection.countDocuments({ available: true })
