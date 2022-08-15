@@ -1,5 +1,6 @@
 from cmath import log
 import socketio
+import os
 
 sio = socketio.Client()
 
@@ -15,12 +16,19 @@ def disconnect():
 connection = False
 
 
+AUTH_TOKEN = os.getenv("LOG_TOKEN")
+
+if(not AUTH_TOKEN):
+    print("Please set LOG_TOKEN environment variable")
+    exit()
+
+
 def log_to_server(line):
     global connection
     if(connection == False):
         connection = sio.connect(
             'https://api.oproxy.ml',
-            auth=('log', 'token')
+            auth=('log', AUTH_TOKEN)
         )
         print('Connected to API Server')
     send_log(line)

@@ -2,7 +2,7 @@ name: Update Servers
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: "0 */2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -13,3 +13,4 @@ jobs:
       - run: "./run.sh"
         env:
           MONGO_CONN_URL: "${{ secrets.MONGO_CONN_URL }}"
+          LOG_TOKEN: "${{ secrets.LOG_TOKEN }}"
