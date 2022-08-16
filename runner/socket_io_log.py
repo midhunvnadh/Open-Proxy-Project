@@ -39,7 +39,6 @@ def socket_io_logger(msg):
         log_to_server(msg)
     except Exception as e:
         print(e)
-        exit()
     print(msg)
 
 
