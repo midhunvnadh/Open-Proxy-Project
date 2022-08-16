@@ -109,6 +109,11 @@ app.get('/countries', async (req, res) => {
             db.collection('servers')
                 .aggregate([
                     {
+                        $match: {
+                            available: true
+                        }
+                    },
+                    {
                         $group: {
                             _id: "$id",
                             countries: { $addToSet: "$data.country" },
@@ -117,6 +122,7 @@ app.get('/countries', async (req, res) => {
                 ])
                 .project({ _id: 0, countries: 1 })
                 .toArray();
+        console.log(collection)
         return res.status(200).send(collection[0].countries.sort());
     }
     catch (err) {
@@ -130,6 +136,11 @@ app.get('/protocols', async (req, res) => {
         const collection = await
             db.collection('servers')
                 .aggregate([
+                    {
+                        $match: {
+                            available: true
+                        }
+                    },
                     {
                         $group: {
                             _id: "$id",
