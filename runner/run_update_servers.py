@@ -47,6 +47,10 @@ def test_availability(server):
                 server["available"] = False
                 server["updated_at"] = datetime.datetime.utcnow()
                 server["streak"] = 0
+            if(retry > 1 and not server_added):
+                sleep(randint(1, 5))
+                retry -= 1
+                continue
             update_server_in_db(server)
             break
         except Exception as e:
