@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/servers', async (req, res) => {
-    const { page, country, proto, query } = req.query
+    const { page, country, proto, query, sort, private_only } = req.query
     try {
         const db = client.db("servers");
         const collection = db.collection('servers')
@@ -78,11 +78,12 @@ app.get('/servers', async (req, res) => {
                         {
                             available: true,
                             ...(country ? { "data.country": country } : {}),
-                            ...(proto ? { proto } : {})
+                            ...(proto ? { proto } : {}),
+                            ...(private_only ? { private: true } : {})
                         }
                     )
                     .sort(
-                        { streak: -1 }
+                        sort === "streak" ? { streak: -1 } : { speed_score: -1 }
                     )
                     .skip(10 * (page || 0))
                     .limit(10)
