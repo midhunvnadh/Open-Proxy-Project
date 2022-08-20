@@ -74,7 +74,7 @@ def servers(available=True):
 
 def run_threads(threads):
     for t in threads:
-        t.daemon = True
+        #t.daemon = True
         t.start()
     for t in threads:
         t.join()

@@ -43,4 +43,6 @@ def ipc_server():
         socket_io_logger(msg)
         if (msg == "end connection"):
             listener.close()
+            print("Closed listener")
             break
+    print("Exited ipc_server")
