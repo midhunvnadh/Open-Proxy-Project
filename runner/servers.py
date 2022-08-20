@@ -83,7 +83,7 @@ def servers():
         sleep(10)
         exit()
     except Exception as e:
-        logger(f"[!] Error: {e}")
+        print(f"[!] Error: {e}")
         sleep(10)
         exit()
 

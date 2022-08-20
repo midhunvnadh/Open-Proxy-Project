@@ -54,7 +54,7 @@ def test_availability(server):
             update_server_in_db(server)
             break
         except Exception as e:
-            logger(f"[!] Error occoured on {server_url}")
+            print(f"[!] Error occoured on {server_url}")
             sleep(2 + randint(1, 3))
             retry -= 1
 
