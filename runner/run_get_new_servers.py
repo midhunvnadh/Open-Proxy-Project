@@ -85,7 +85,7 @@ def run_threads(threads):
 total_servers = 0
 
 
-def new_servers(threads_no=16, once=False):
+def new_servers(threads_no=50, once=False):
     global client, total_servers
     while True:
         try:
