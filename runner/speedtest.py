@@ -2,7 +2,7 @@ import requests
 import time
 from func_timeout import func_set_timeout, func_timeout
 
-timeout = 10
+timeout = 15
 
 
 @func_set_timeout(timeout)
