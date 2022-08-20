@@ -60,6 +60,10 @@ app.get('/servers', async (req, res) => {
         const db = client.db("servers");
         const collection = db.collection('servers')
         var db_res;
+
+        var sort_by = {}
+        sort_by[sort || "updated_at"] = -1
+        
         if (query) {
             db_res = await
                 collection
@@ -82,9 +86,7 @@ app.get('/servers', async (req, res) => {
                             ...(private_only ? { private: true } : {})
                         }
                     )
-                    .sort(
-                        sort === "streak" ? { streak: -1 } : { speed_score: -1 }
-                    )
+                    .sort(sort_by)
                     .skip(10 * (page || 0))
                     .limit(10)
                     .project({ _id: 0 })
