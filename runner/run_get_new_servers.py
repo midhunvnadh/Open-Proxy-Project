@@ -23,7 +23,7 @@ def check_server_present(server):
 def add_server_to_db(server):
     collection = client.servers
     servers = collection.servers
-    if(check_server_present(server)):
+    if (check_server_present(server)):
         print(
             f"\n\n\n[!] {server['url']} already present in the database\n\n\n"
         )
@@ -32,9 +32,6 @@ def add_server_to_db(server):
 
 
 def test_availability(server):
-    if(check_server_present(server)):
-        return False
-
     server_url = server["url"]
     private = False
     server_available = False
@@ -43,17 +40,17 @@ def test_availability(server):
     server_speed_rating = 0
 
     retry = 3
-    while(retry > 0):
+    while (retry > 0):
         try:
             server_available, private, data = test_server(server_url)
             server["data"] = data
             server["private"] = private
-            if(not data):
+            if (not data):
                 break
-            if(server_available):
+            if (server_available):
                 server_speed_rating = speedtest(server_url)
                 server["speed_score"] = server_speed_rating
-                if(server_speed_rating > 0):
+                if (server_speed_rating > 0):
                     server["available"] = True
                     server["updated_at"] = datetime.datetime.utcnow()
                     server["streak"] = 1
@@ -96,7 +93,7 @@ def new_servers(threads_no=16, once=False):
                     target=test_availability, args=(server, )
                 )
                 threads.append(t1)
-                if(len(threads) >= threads_no):
+                if (len(threads) >= threads_no):
                     run_threads(threads)
                     threads.clear()
 
@@ -104,5 +101,5 @@ def new_servers(threads_no=16, once=False):
         except Exception as e:
             print(e)
             sleep(5)
-        if(once):
+        if (once):
             break

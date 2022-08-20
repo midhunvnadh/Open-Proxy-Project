@@ -8,6 +8,7 @@ conn = False
 def send_log(msg):
     global conn
     try:
+        print(msg)
         if (conn == False):
             conn = Client(address, authkey=b'password')
         conn.send(msg)
