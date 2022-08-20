@@ -2,14 +2,14 @@ import requests
 from time import sleep
 import json
 import threading
-from socket_io_log import socket_io_logger as logger
+from ipc_client import send_log as logger
 
 
 def remove_duplicates(ls):
     new_list = list(set(ls))
 
     no_of_duplicates = len(ls) - len(new_list)
-    if(no_of_duplicates > 0):
+    if (no_of_duplicates > 0):
         logger(
             f"[!] Duplicates found in the list. Removed {no_of_duplicates} duplicates."
         )

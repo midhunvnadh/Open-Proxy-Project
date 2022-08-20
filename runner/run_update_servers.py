@@ -6,7 +6,7 @@ from random import randint
 from format_string import format_string
 import datetime
 import threading
-from socket_io_log import socket_io_logger as logger
+from ipc_client import send_log as logger
 
 
 def update_server_in_db(server):

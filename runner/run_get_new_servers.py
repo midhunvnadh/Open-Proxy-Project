@@ -10,7 +10,7 @@ from format_string import format_string
 from time import sleep
 from mongo_conn import mongo_client
 from mongo_conn import mongo_client
-from socket_io_log import socket_io_logger as logger
+from ipc_client import send_log as logger
 
 
 def check_server_present(server):
