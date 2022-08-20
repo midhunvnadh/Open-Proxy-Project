@@ -62,7 +62,7 @@ def test_availability(server):
             else:
                 retry -= 1
         except Exception as e:
-            logger(f"[!] Error occoured on {server_url}")
+            print(f"[!] Error occoured on {server_url}")
             retry -= 1
             sleep(2 + randint(1, 3))
 
