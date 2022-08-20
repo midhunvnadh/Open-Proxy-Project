@@ -23,6 +23,7 @@ def test_availability(server):
     data = {}
     server_added = False
     server_speed_rating = 0
+    server_available_prev = server["available"]
 
     retry_count = retry = 3
     streak = server["streak"] if "streak" in server else 0
@@ -62,7 +63,8 @@ def test_availability(server):
     line = (
         f"[Status Update] {emoji}\t Try({retry_count - retry}) \t {format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}]"
     )
-    logger(line)
+    if (server_available_prev != server_available):
+        logger(line)
 
 
 def servers(available=True):
