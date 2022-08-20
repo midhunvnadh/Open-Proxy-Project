@@ -26,7 +26,7 @@ def remove_duplicates(ls):
             f"[!] Commons found in the list. Removed {no_of_common_removed} commons."
         )
 
-    return new_list
+    return common_removed
 
 
 def remove_common(ls1, ls2):
