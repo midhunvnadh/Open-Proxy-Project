@@ -1,10 +1,12 @@
-from ast import main
 import requests
 from time import sleep
 import json
 import threading
 from mongo_conn import mongo_client
 from ipc_client import send_log as logger
+
+servers_list = []
+client = mongo_client()
 
 
 def remove_duplicates(ls):
@@ -36,9 +38,6 @@ def revert_json_list(json_list):
     return [json.loads(x) for x in json_list]
 
 
-client = mongo_client()
-
-
 def servers_in_db():
     collection = client.servers
     servers = collection.servers
@@ -52,9 +51,6 @@ def servers_in_db():
         }
     ])
     return list([json.dumps(x) for x in available_servers])
-
-
-servers_list = []
 
 
 def get_data(provider):
@@ -110,7 +106,3 @@ def servers():
         remove_duplicates(servers_list)
     )
     return remove_duplicates_server_list
-
-
-if __name__ == "__main__":
-    print(len(servers()))
