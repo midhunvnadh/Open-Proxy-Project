@@ -63,7 +63,7 @@ app.get('/servers', async (req, res) => {
 
         var sort_by = {}
         sort_by[sort || "updated_at"] = -1
-        
+
         if (query) {
             db_res = await
                 collection
@@ -92,6 +92,7 @@ app.get('/servers', async (req, res) => {
                     .project({ _id: 0 })
                     .toArray();
         }
+        
         const count = await collection.countDocuments({ available: true })
         return res.status(200).send({
             alive_count: count,
