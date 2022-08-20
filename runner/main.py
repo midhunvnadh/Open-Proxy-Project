@@ -25,9 +25,9 @@ threads_no, once = args()
 
 threads = [
     td.Thread(target=ipc_server, args=()),
-    td.Thread(target=new_servers, args=(threads_no, once, )),
     td.Thread(target=update_servers, args=(True, threads_no, once, )),
-    td.Thread(target=update_servers, args=(False, threads_no, once, )),
+    #td.Thread(target=update_servers, args=(False, threads_no, once, )),
+    #td.Thread(target=new_servers, args=(threads_no, once, )),
 ]
 
 if __name__ == '__main__':

@@ -68,8 +68,10 @@ def test_availability(server):
 def servers(available=True):
     collection = client.servers
     servers = collection.servers
-    available_servers = servers.find({"available": available})
-    return available_servers
+    available_servers = servers.find(
+        {"available": available}
+    ).sort("updated_at", 1)
+    return list(available_servers)
 
 
 def run_threads(threads):
@@ -86,7 +88,7 @@ def update_servers(available=True, threads_no=16, once=False):
         threads = []
         try:
             client = mongo_client()
-            available_servers = servers(available)
+            available_servers = (servers(available))
             for server in available_servers:
                 t1 = threading.Thread(
                     target=test_availability,
