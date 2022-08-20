@@ -36,4 +36,4 @@ if __name__ == '__main__':
         sleep(2)
     for t in threads[1:]:
         t.join()
-    os._exit(1)
+    os._exit(0)

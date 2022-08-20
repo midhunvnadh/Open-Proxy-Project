@@ -70,11 +70,7 @@ def test_availability(server):
     total_servers -= 1
     if (server_added):
         logger(
-            f"[Found  Update] {emoji}\t Try({retry_count - retry}) \t {format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}]"
-        )
-    else:
-        logger(
-            f"[Found  Update] {format_string(total_servers, 6)} Left"
+            f"[Found  Update] {emoji}\t Try({retry_count - retry}) \t {format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}] \t {format_string(total_servers, 6)} Left"
         )
 
 
