@@ -10,7 +10,7 @@ from format_string import format_string
 from time import sleep
 from mongo_conn import mongo_client
 from mongo_conn import mongo_client
-from socket_io_log import socket_io_logger as logger
+from ipc_client import send_log as logger
 
 
 def check_server_present(server):
@@ -23,8 +23,8 @@ def check_server_present(server):
 def add_server_to_db(server):
     collection = client.servers
     servers = collection.servers
-    if(check_server_present(server)):
-        print(
+    if (check_server_present(server)):
+        logger(
             f"\n\n\n[!] {server['url']} already present in the database\n\n\n"
         )
     else:
@@ -32,9 +32,7 @@ def add_server_to_db(server):
 
 
 def test_availability(server):
-    if(check_server_present(server)):
-        return False
-
+    global total_servers
     server_url = server["url"]
     private = False
     server_available = False
@@ -42,51 +40,58 @@ def test_availability(server):
     server_added = False
     server_speed_rating = 0
 
-    retry = 3
-    while(retry > 0):
+    retry_count = retry = 3
+    while (retry > 0):
         try:
             server_available, private, data = test_server(server_url)
             server["data"] = data
             server["private"] = private
-            if(not data):
-                break
-            if(server_available):
+            if (server_available):
+                if (not data):
+                    break
                 server_speed_rating = speedtest(server_url)
                 server["speed_score"] = server_speed_rating
-                if(server_speed_rating > 0):
+                if (server_speed_rating > 0):
                     server["available"] = True
                     server["updated_at"] = datetime.datetime.utcnow()
                     server["streak"] = 1
                     add_server_to_db(server)
                     server_added = True
-            break
+            if (server_added):
+                break
+            else:
+                retry -= 1
         except Exception as e:
-            print(e)
-            sleep(2 + randint(1, 3))
+            print(f"[!] Error occoured on {server_url}")
             retry -= 1
+            sleep(2 + randint(1, 3))
 
     emoji = "[+]" if server_added else "[-]"
-    if server_added:
-        line = (
-            f"[Found  Update] {emoji}\t{format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}]"
+    total_servers -= 1
+    if (server_added):
+        logger(
+            f"[Found  Update] {emoji}\t Try({retry_count - retry}) \t {format_string(server_url, 31)} \t [Speed Rating: {format_string(server_speed_rating, 3)}] \t {format_string(total_servers, 6)} Left"
         )
-        logger(line)
 
 
 def run_threads(threads):
     for t in threads:
-        t.daemon = True
+        #t.daemon = True
         t.start()
     for t in threads:
         t.join()
 
 
-def new_servers(threads_no=16, once=False):
-    global client
+total_servers = 0
+
+
+def new_servers(threads_no=50, once=False):
+    global client, total_servers
     while True:
         try:
             client = mongo_client()
             servers_list = servers()
+            total_servers = len(servers_list)
             threads = []
             i = 0
 
@@ -96,7 +101,7 @@ def new_servers(threads_no=16, once=False):
                     target=test_availability, args=(server, )
                 )
                 threads.append(t1)
-                if(len(threads) >= threads_no):
+                if (len(threads) >= threads_no):
                     run_threads(threads)
                     threads.clear()
 
@@ -104,5 +109,6 @@ def new_servers(threads_no=16, once=False):
         except Exception as e:
             print(e)
             sleep(5)
-        if(once):
+        if (once):
+            print("Done")
             break
