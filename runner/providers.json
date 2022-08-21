@@ -73,7 +73,7 @@
   },
   {
     "url": "https://raw.githubusercontent.com/proxy4parsing/proxy-list/main/http.txt",
-    "proto": "http"
+    "proto": "https"
   },
   {
     "url": "https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
@@ -109,6 +109,46 @@
   },
   {
     "url": "https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks5.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/HyperBeats/proxy-list/main/http.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/HyperBeats/proxy-list/main/socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/HyperBeats/proxy-list/main/socks5.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS4_RAW.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
+    "proto": "socks5"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hanwayTech/free-proxy-list/main/http.txt",
+    "proto": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hanwayTech/free-proxy-list/main/https.txt",
+    "proto": "https"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hanwayTech/free-proxy-list/main/socks4.txt",
+    "proto": "socks4"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hanwayTech/free-proxy-list/main/socks5.txt",
     "proto": "socks5"
   }
 ]
